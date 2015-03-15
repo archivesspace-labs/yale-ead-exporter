@@ -9,7 +9,7 @@ class EADSerializer < ASpaceExport::Serializer
       @parent_id = nil
       (1..3).each do |n|
         atts = {}
-        next unless inst['container'].has_key?("type_#{n}") && inst['container'].has_key?("indicator_#{n}")
+        next unless ( inst['container'].has_key?("type_#{n}") && inst['container'].has_key?("indicator_#{n}") 
         @container_id = prefix_id(SecureRandom.hex)
         atts[:parent] = @parent_id unless @parent_id.nil?
         atts[:id] = @container_id
@@ -23,9 +23,7 @@ class EADSerializer < ASpaceExport::Serializer
             atts[:label] = I18n.t("enumerations.instance_instance_type.#{inst['instance_type']}", :default => inst['instance_type'])
           end
         end
-        xml.container(atts) {
-        sanitize_mixed_content(text, xml, fragments)
-        }
+        xml.container(atts) { sanitize_mixed_content(text, xml, fragments)  }
       end
     end
     
